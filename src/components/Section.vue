@@ -1,5 +1,5 @@
 <template>
-  <div id="section" class="flex-item full-width full-height">
+  <div id="section" class="flex-item full-width">
   </div>
 </template>
 

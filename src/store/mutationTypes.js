@@ -3,5 +3,4 @@
 export default {
 // Sidebar
 TOGGLE_SIDEBAR: 'toggleSidebar'
-
 }

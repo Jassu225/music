@@ -3,6 +3,14 @@
   cursor: pointer;
 }
 
+.center-horizontal {
+  justify-content: center;
+}
+
+.center-vertical {
+  align-items: center;
+}
+
 .full-height {
   height: 100%;
 }
