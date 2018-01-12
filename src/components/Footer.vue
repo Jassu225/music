@@ -6,7 +6,9 @@
       </div>
       <div class="flex-item">
         <div class="flex-container full-height" style="flex-direction: column;">
-          <SeekbarContainer class="flex-item"/>
+            <div class="flex-container center-horizontal center-vertical full-height">
+              <SeekbarContainer />
+            </div>
         </div>
       </div>
     </div>

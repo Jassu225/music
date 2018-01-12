@@ -15,6 +15,9 @@ const store = new Vuex.Store({
     [mutationTypes.TOGGLE_SIDEBAR] (state) {
       state.sidebar.toggle = !state.sidebar.toggle;
       console.log(state.sidebar.toggle);
+    },
+    [mutationTypes.PLAY_OR_PAUSE] (state) {
+
     }
   }
 });

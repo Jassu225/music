@@ -7,6 +7,13 @@ import './assets/css/generic.css';
 
 // generic scripts
 import store from './store';
+import './assets/js/generic.js';
+
+// // jqueryUI imports
+// import './assets/jqueryUI/jquery.js';
+// // import './assets/jqueryUI/jquery-ui.min.css';
+// import './assets/jqueryUI/jquery-ui.js';
+
 
 // // font awesome icons
 // import 'vue-awesome/icons';
