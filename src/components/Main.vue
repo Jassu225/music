@@ -1,9 +1,11 @@
 <template>
   <div id="main" class="flex-container">
     <TopMenu />
-    <div class="flex-item" style="position: relative;">
-      <Sidebar />
-      <Section />
+    <div class="flex-item">
+      <div class="position-relative full-height" >
+        <Sidebar />
+        <Section />
+      </div>
     </div>
     <Footer />
   </div>

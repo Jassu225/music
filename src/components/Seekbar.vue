@@ -1,7 +1,7 @@
 <template>
   <div id="seekbar" :style="{width: width + '%'}" style="max-width:100%;">
     <SeekbarTip />
-    <audio id='audio-player' src="file:///C:/Users/jaswa/Desktop/Selena Gomez/Selena Gomez, Marshmello - Wolves (Lyrics).mp3"
+    <audio id='audio-player' src="file:///C:/Users/jaswa/Music/Chakori [RockOnMp3.com].mp3"
       @loadeddata="loadeddata"
       @play="readyToPlay"
       @playing="startedPlaying"
@@ -23,9 +23,17 @@ export default {
     });
     window.addEventListener("mouseup", this.addMouseUpListener);
     this.addMouseMoveListener();
-    console.log('mounted');
+    // console.log('mounted');
   },
-  props: ['seekPercentage', 'updateCurrentTime', 'updateDuration', 'posX1', 'posX2', 'draggable', 'disableDrag'],
+  props: [
+    'seekPercentage',
+    'updateCurrentTime',
+    'updateDuration',
+    'posX1',
+    'posX2',
+    'draggable',
+    'disableDrag'
+  ],
   data: function() {
     return {
       width: 0,

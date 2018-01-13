@@ -8,6 +8,8 @@
 import Album from './Album.vue';
 
 export default {
-  
+  components: {
+    Album
+  }
 }
 </script>
