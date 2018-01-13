@@ -1,13 +1,41 @@
 <template>
   <div id="footer">
     <div class="flex-container full-height">
+
       <div id="topMenuAlias">
         <div class='image-container'></div>
       </div>
+
       <div class="flex-item">
         <div class="flex-container full-height" style="flex-direction: column;">
-            <div class="flex-container center-horizontal center-vertical full-height">
-              <SeekbarContainer />
+            <div class="flex-item">
+              <div class="flex-container center-horizontal center-vertical full-height">
+                <div style="width: 80px; text-align: center; height: 100%;">
+                  <div class="full-height flex-container center-horizontal center-vertical">
+                    <div> {{ currentTime }} </div>
+                  </div>
+                </div>
+
+                <div class="flex-item full-height">
+                  <div class="full-height flex-container center-horizontal center-vertical">
+                    <SeekbarContainer
+                    :updateCurrentTime="updateCurrentTime"
+                    :updateDuration="updateDuration" />
+                  </div>
+                </div>
+
+                <div style="width: 80px; text-align: center; height: 100%;">
+                  <div class="full-height flex-container center-horizontal center-vertical">
+                    <div> {{ duration }} </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Player Controls -->
+            <div class="flex-item">
+              <div class="flex-container center-horizontal center-vertical full-height">
+                <PlayerControls />
+              </div>
             </div>
         </div>
       </div>
@@ -17,10 +45,37 @@
 
 <script>
 import SeekbarContainer from './SeekbarContainer.vue';
+import PlayerControls from './PlayerControls.vue';
 
 export default {
+  data() {
+    return {
+      currentTime: "00:00",
+      duration: "00:00"
+    }
+  },
   components: {
-    SeekbarContainer
+    SeekbarContainer,
+    PlayerControls
+  },
+  methods: {
+    getHumanReadableFormatTime: function(value) {
+      value = Math.round(value);
+      let minutes = Math.floor(value / 60);
+      let seconds = value % 60;
+      if(minutes < 10)
+        minutes = `0${minutes}`;
+      if(seconds < 10)
+        seconds = `0${seconds}`;
+
+      return (`${minutes}:${seconds}`);
+    },
+    updateCurrentTime: function(value) {
+      this.currentTime = this.getHumanReadableFormatTime(value);
+    },
+    updateDuration: function(value) {
+      this.duration = this.getHumanReadableFormatTime(value);
+    }
   }
 }
 </script>

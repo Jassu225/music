@@ -23,6 +23,7 @@ body,html {
   width: 100%;
   height: 100%;
   overflow-y: hidden;
+  user-select: none;
 }
 
 #app {

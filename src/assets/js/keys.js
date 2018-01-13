@@ -2,8 +2,8 @@ export default {
 
   // List of key codes
 
-  l:108,
-  m: 109,
+  l: 76,
+  m: 77,
   L: 76,
   M: 77,
   ENTER: 13,

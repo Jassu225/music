@@ -16,7 +16,7 @@
 
 <script>
 import mutationTypes from "../store/mutationTypes";
-import { icon } from '@fortawesome/fontawesome';
+// import { icon } from '@fortawesome/fontawesome';
 
 export default {
   data() {

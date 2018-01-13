@@ -1,6 +1,13 @@
 <template>
-  <div id="seek-container" @click="getOffsetX">
-    <Seekbar :seek="seek" :seekPercentage="seekPercentage"/>
+  <div id="seek-container" @mousedown="getOffsetX">
+    <Seekbar
+    :seekPercentage="seekPercentage"
+    :updateCurrentTime="updateCurrentTime"
+    :updateDuration="updateDuration"
+    :posX1="posX1"
+    :posX2="posX2"
+    :draggable="draggable"
+    :disableDrag="disableDrag" />
   </div>
 </template>
 
@@ -10,10 +17,13 @@ import Seekbar from "./Seekbar.vue";
 export default {
   data() {
     return {
-      seek: false,
-      seekPercentage: 0
+      seekPercentage: 0,
+      draggable: false,
+      posX1: 0,
+      posX2: 0
     };
   },
+  props: ['updateCurrentTime', 'updateDuration'],
   components: {
     Seekbar
   },
@@ -22,9 +32,20 @@ export default {
       // console.log(event);
       // console.log(this.$el.offsetWidth);
       // console.log(event.offsetWidth);
-      this.seekPercentage = ( event.offsetX / this.$el.offsetWidth );
-      this.seek = !this.seek;
-      // console.log()
+      // console.log(this.$el.getClientRects());
+      let boundinClientRect = this.$el.getBoundingClientRect();
+      this.posX1 = boundinClientRect.left;
+      this.posX2 = boundinClientRect.right;
+      console.log(this.posX2 - this.posX1);
+      this.seekPercentage = ( (event.x - this.posX1) / (this.posX2 - this.posX1) );
+      this.draggable = true;
+      console.log(this.seekPercentage);
+      // this.seek = !this.seek;
+      // console.log('et')
+    },
+    disableDrag: function() {
+      // this.removeListener  = !this.removeListener;
+      this.draggable = false;
     }
   }
 }
@@ -32,7 +53,7 @@ export default {
 
 <style>
 #seek-container {
-  width: 75%;
+  width: 100%;
   height: 3px;
   background-color: rgb(57, 74, 73);
   border-radius: 3px;

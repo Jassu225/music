@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 
 // stylesheets
-import './assets/css/fontawesome-all.css'
+import './assets/css/fontawesome-all.css';
+import './assets/css/google-material-icons.css';
 import './assets/css/generic.css';
 
 // generic scripts
@@ -10,7 +11,7 @@ import store from './store';
 import './assets/js/generic.js';
 
 // // jqueryUI imports
-// import './assets/jqueryUI/jquery.js';
+// import jq from './assets/jqueryUI/jquery.js';
 // // import './assets/jqueryUI/jquery-ui.min.css';
 // import './assets/jqueryUI/jquery-ui.js';
 
@@ -23,5 +24,9 @@ import './assets/js/generic.js';
 new Vue({
   el: '#app',
   store,
-  render: h => h(App)
+  // render: h => h(App)
+  template: '<App />',
+  components: {
+    App
+  }
 });
