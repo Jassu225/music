@@ -15,9 +15,17 @@ export default {
     let files = await this.fetchSongsFromDirectories(folders);
     console.log('fetch songs completed');
     console.log(files);
-    let songs = await Promise.all(files.map(async file => {
-      return(await this.fetchMetaData(file));
-    }));
+    let songs = await Promise.all(
+      Promise.map(
+        files,
+        async file => {
+          return(await this.fetchMetaData(file));
+        },
+        {
+          concurrency: 12  // executes whole array with 32 parallel executions at a time
+        }
+      )
+    );
     console.log('after fetching metadata');
     console.log(songs);
   },
@@ -100,6 +108,7 @@ export default {
       console.log(err);
     });
     // console.log(metaData);
+    metaData.path = file;
     return metaData;
   }
 }
