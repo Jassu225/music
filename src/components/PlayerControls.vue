@@ -1,12 +1,12 @@
 <template>
   <div class="flex-container" style="text-align: center;width: 50%;">
-    <i class="material-icons font-size-22 button media-controls" @click="replay">replay</i>
-    <i class="fas fa-step-backward button flex-item media-controls" @click="seekBackward"></i>
-    <i class="fas fa-backward button flex-item media-controls"></i>
-    <i :class="icons[iconSelector]" class='fas button font-size-22 flex-item media-controls' @click="playOrPause"></i>
-    <i class="fas fa-forward button flex-item media-controls"></i>
-    <i class="fas fa-step-forward button flex-item media-controls" @click="seekForward"></i>
-    <i class="material-icons font-size-22 button media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
+    <i class="material-icons button flex-item media-controls" @click="replay">replay</i>
+    <i class="material-icons button flex-item media-controls" @click="seekBackward">fast_rewind</i>
+    <i class="material-icons button flex-item media-controls">skip_previous</i>
+    <i :class="icons[iconSelector]" class='fas button flex-item media-controls' @click="playOrPause"></i>
+    <i class="material-icons button flex-item media-controls">skip_next</i>
+    <i class="material-icons button flex-item media-controls" @click="seekForward">fast_forward</i>
+    <i class="material-icons button flex-item media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
   </div>
 </template>
 
@@ -66,7 +66,7 @@ export default {
     },
     replay() {
       audioPlayer.currentTime = 0;
-      audioPlayer.paused? audioPlayer.play() : null;
+      audioPlayer.paused? (audioPlayer.play() && (this.iconSelector = 1 - this.iconSelector)) : null;
     },
     // 0 = HAVE_NOTHING - no information whether or not the audio/video is ready
     // 1 = HAVE_METADATA - metadata for the audio/video is ready
@@ -90,6 +90,7 @@ export default {
 
 .material-icons {
   margin-top: -3px;
+  font-size: 22px;
 }
 
 .media-controls:hover {

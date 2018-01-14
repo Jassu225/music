@@ -10,6 +10,9 @@ import './assets/css/generic.css';
 import store from './store';
 import './assets/js/generic.js';
 
+require("babel-core/register");
+require("babel-polyfill");
+
 // // jqueryUI imports
 // import jq from './assets/jqueryUI/jquery.js';
 // // import './assets/jqueryUI/jquery-ui.min.css';
