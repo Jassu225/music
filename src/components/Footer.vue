@@ -20,7 +20,10 @@
                   <div class="full-height flex-container center-horizontal center-vertical">
                     <SeekbarContainer
                     :updateCurrentTime="updateCurrentTime"
-                    :updateDuration="updateDuration" />
+                    :updateDuration="updateDuration"
+                    :changePlayPauseIconIndex="changePlayPauseIconIndex"
+                    :setToPlayIcon="setToPlayIcon"
+                    :setToPauseIcon="setToPauseIcon" />
                   </div>
                 </div>
 
@@ -34,7 +37,7 @@
             <!-- Player Controls -->
             <div class="flex-item">
               <div class="flex-container center-horizontal center-vertical full-height">
-                <PlayerControls />
+                <PlayerControls :playPauseIconIndex="playPauseIconIndex"/>
               </div>
             </div>
         </div>
@@ -51,7 +54,8 @@ export default {
   data() {
     return {
       currentTime: "00:00",
-      duration: "00:00"
+      duration: "00:00",
+      playPauseIconIndex: 0
     }
   },
   components: {
@@ -75,6 +79,15 @@ export default {
     },
     updateDuration: function(value) {
       this.duration = this.getHumanReadableFormatTime(value);
+    },
+    changePlayPauseIconIndex: function() {
+      this.playPauseIconIndex = 1 - this.playPauseIconIndex;
+    },
+    setToPlayIcon: function() {
+      this.playPauseIconIndex = 0;
+    },
+    setToPauseIcon: function() {
+      this.playPauseIconIndex = 1;
     }
   }
 }

@@ -18,6 +18,8 @@
     "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.5.1",
     "electron": "^1.7.10",
+    "level-js": "^2.2.4",
+    "linvodb3": "^3.25.1",
     "musicmetadata": "^2.0.5",
     "vue": "^2.5.11",
     "vuex": "^3.0.1"

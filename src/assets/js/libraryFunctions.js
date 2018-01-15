@@ -1,10 +1,13 @@
 import index from "../../store/index";
 
-const {dialog} = window.require('electron').remote;
+const electron = window.require('electron');
+const {dialog} = electron.remote;
 const path = window.require('path');
-const Promise = require("bluebird");
+const Promise = window.require("bluebird");
 const fs = Promise.promisifyAll(window.require('fs'));
-const mm = Promise.promisify(require('musicmetadata'));
+const mm = Promise.promisify(window.require('musicmetadata'));
+
+let Songs,Albums;
 
 export default {
   addFolders: async function() {
@@ -28,6 +31,9 @@ export default {
     );
     console.log('after fetching metadata');
     console.log(songs);
+    Songs = songs;
+    this.fetchAlbumsMetaData(songs);
+    this.fetchArtistsMetaData(songs);
   },
   fetchSongsFromDirectories: async function(folders) {
     let files = [];
@@ -95,20 +101,28 @@ export default {
   },
   fetchMetaData: async function(file) {
     console.log('fetching ' + file);
-    let metaData;
+    let SongMetaData, AlbumMetaData;
     let stream = fs.createReadStream(file);
     stream.on('end', ()=>{
       stream.destroy();
     });
     await mm(stream)
     .then(meta_data => {
-      metaData = meta_data;
+      SongMetaData = meta_data;
     })
     .catch(err => {
       console.log(err);
     });
-    // console.log(metaData);
-    metaData.path = file;
-    return metaData;
+    // console.log(SongMetaData);
+    SongMetaData = Objects.song(file, SongMetaData);
+    return SongMetaData;
+  },
+  fetchAlbumsMetaData: async function(songs) {
+    let albums = await Objects.albumsToDB(songs);
+    Albums = albums;
+    console.log(albums);
+  },
+  fetchArtistsMetaData: function(songs) {
+
   }
 }

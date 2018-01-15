@@ -3,7 +3,7 @@
     <i class="material-icons button flex-item media-controls" @click="replay">replay</i>
     <i class="material-icons button flex-item media-controls" @click="seekBackward">fast_rewind</i>
     <i class="material-icons button flex-item media-controls">skip_previous</i>
-    <i :class="icons[iconSelector]" class='fas button flex-item media-controls' @click="playOrPause"></i>
+    <i class='material-icons button flex-item media-controls' @click="playOrPause">{{icons[playPauseIconIndex]}}</i>
     <i class="material-icons button flex-item media-controls">skip_next</i>
     <i class="material-icons button flex-item media-controls" @click="seekForward">fast_forward</i>
     <i class="material-icons button flex-item media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
@@ -14,9 +14,10 @@
 import keyCodes from '../assets/js/keys';
 
 export default {
+  props: ['playPauseIconIndex'],
   data: function() {
     return {
-      icons: ['fa-play-circle','fa-pause-circle'],
+      icons: ['play_arrow','pause'],
       iconSelector: 0,
       repeatModes: ['repeat', 'repeat_one'],
       repeatModeSelector: 0
@@ -55,8 +56,11 @@ export default {
       this.repeatModeSelector = 1 - this.repeatModeSelector;  // Toggles from  0 to 1 and vice-versa
     },
     playOrPause() {
-      this.iconSelector = 1 - this.iconSelector;
+      // this.togglePlayPauseIcon();
       audioPlayer.paused? audioPlayer.play() : audioPlayer.pause();
+    },
+    togglePlayPauseIcon() {
+      this.iconSelector = 1 - this.iconSelector;
     },
     setOrRemoveLoop() {
       audioPlayer.loop = !audioPlayer.loop;
@@ -66,7 +70,7 @@ export default {
     },
     replay() {
       audioPlayer.currentTime = 0;
-      audioPlayer.paused? (audioPlayer.play() && (this.iconSelector = 1 - this.iconSelector)) : null;
+      audioPlayer.paused? (audioPlayer.play()) : null;
     },
     // 0 = HAVE_NOTHING - no information whether or not the audio/video is ready
     // 1 = HAVE_METADATA - metadata for the audio/video is ready

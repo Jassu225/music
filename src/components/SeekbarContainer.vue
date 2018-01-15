@@ -7,7 +7,10 @@
     :posX1="posX1"
     :posX2="posX2"
     :draggable="draggable"
-    :disableDrag="disableDrag" />
+    :disableDrag="disableDrag"
+    :changePlayPauseIconIndex="changePlayPauseIconIndex"
+    :setToPlayIcon="setToPlayIcon"
+    :setToPauseIcon="setToPauseIcon" />
   </div>
 </template>
 
@@ -23,7 +26,13 @@ export default {
       posX2: 0
     };
   },
-  props: ['updateCurrentTime', 'updateDuration'],
+  props: [
+    'updateCurrentTime',
+    'updateDuration',
+    'changePlayPauseIconIndex',
+    'setToPlayIcon',
+    'setToPauseIcon'
+  ],
   components: {
     Seekbar
   },

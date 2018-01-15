@@ -1,7 +1,7 @@
 <template>
   <div id="seekbar" :style="{width: width + '%'}" style="max-width:100%;">
     <SeekbarTip />
-    <audio id='audio-player' src="file:///C:/Users/jaswa/Music/Chakori [RockOnMp3.com].mp3"
+    <audio id='audio-player' src="file:///C:/Users/jaswa/Desktop/Alan Walker/Alan Walker - Alone.mp3"
       @loadeddata="loadeddata"
       @play="readyToPlay"
       @playing="startedPlaying"
@@ -32,7 +32,10 @@ export default {
     'posX1',
     'posX2',
     'draggable',
-    'disableDrag'
+    'disableDrag',
+    'changePlayPauseIconIndex',
+    'setToPlayIcon',
+    'setToPauseIcon'
   ],
   data: function() {
     return {
@@ -66,14 +69,16 @@ export default {
     },
     readyToPlay: function() {
       this.setTimer();
-      console.log('ready to play');
+      console.log('ready to play'); 
     },
     startedPlaying: function() {
-      console.log('started playing');
       this.playingStarted = true;
+      this.setToPauseIcon();
+      console.log('started playing');
     },
     paused: function() {
       console.log('paused');
+      this.changePlayPauseIconIndex();
       this.clear();
     },
     seeked: function() {
@@ -81,6 +86,7 @@ export default {
       this.updateSeekbarWidth();
     },
     ended: function() {
+      this.setToPlayIcon();
       this.playingStarted = false;
       this.clear();
       this.setWidth(100);
