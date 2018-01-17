@@ -1,9 +1,11 @@
 import index from "../../store/index";
+import { Objects } from './objectsAndSchemas';
 
 const electron = window.require('electron');
 const {dialog} = electron.remote;
 const path = window.require('path');
 const Promise = window.require("bluebird");
+// console.log(Promise);
 const fs = Promise.promisifyAll(window.require('fs'));
 const mm = Promise.promisify(window.require('musicmetadata'));
 
@@ -14,7 +16,8 @@ export default {
     let folders = dialog.showOpenDialog({
       properties: ['openDirectory', 'multiSelections']
     });
-
+    if(!folders)
+      return;
     let files = await this.fetchSongsFromDirectories(folders);
     console.log('fetch songs completed');
     console.log(files);
@@ -32,8 +35,9 @@ export default {
     console.log('after fetching metadata');
     console.log(songs);
     Songs = songs;
-    this.fetchAlbumsMetaData(songs);
-    this.fetchArtistsMetaData(songs);
+    await this.fetchAlbumsMetaData(songs);
+    await this.fetchArtistsMetaData(songs);
+    return songs;
   },
   fetchSongsFromDirectories: async function(folders) {
     let files = [];
@@ -118,9 +122,8 @@ export default {
     return SongMetaData;
   },
   fetchAlbumsMetaData: async function(songs) {
-    let albums = await Objects.albumsToDB(songs);
-    Albums = albums;
-    console.log(albums);
+    console.log('fetching albums metadata');
+    await Objects.albumsToDB(songs);
   },
   fetchArtistsMetaData: function(songs) {
 

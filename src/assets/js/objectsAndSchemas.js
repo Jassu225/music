@@ -1,9 +1,12 @@
 import path from 'path';
+import store from './../../store';
 
 const linvodb = window.require('linvodb3');
 const leveljs = window.require('level-js');
 const electron = window.require('electron');
 const {app} = electron.remote;
+const Promise = window.require("bluebird");
+console.log(Promise);
 
 linvodb.defaults.store = {
   db: leveljs
@@ -49,7 +52,7 @@ const Objects = {
   },
   album: function(song) {
     return {
-      artists: song.artists,
+      artists: song.artist,
       cover: song.cover,
       defaultCover: song.defaultCover,
       duration: song.duration,
@@ -60,36 +63,43 @@ const Objects = {
     };
   },
   albumsToDB: async function(songs) {
-    let artists = await Promise.all(Promise.map(async song => {
-      await AlbumDB.findOne({ title: song.album })
-      .then(function (doc) {
+    await Promise.all(Promise.map(songs,async song => {
+      console.log('parsing ' + song.path);
+      await AlbumDB.findOneAsync({ title: song.album })
+      .then( async (doc) => {
         if(doc) {
-          doc.artists.push(song.artists);
+          console.log('doc found');
+          doc.artists.push(song.artist);
           doc.artists = doc.artists.filter( this.onlyUnique );
-          doc.songsList.push(sonng.path);
+          doc.songsList.push(song.path);
           doc.defaultCover = (doc.defaultCover && !song.defaultCover) ? song.defaultCover : doc.defaultCover;
           doc.duration += song.duration;
           doc.tracks += 1; 
           doc.save(function(err) { /* we have updated the doc */ });
         } else {
+          console.log('doc not found');
           doc = this.album(song);
-          await AlbumsDB.insert(doc)
-          .then(function(newDoc) {
+          await AlbumDB.insertAsync(doc)
+          .then((newDoc) => {
             // success
-          }).catch(err => {
-            console.log(err);
-          });
+            console.log('album created');
+            console.log(newDoc);
+          })
+          .catch(err => console.log(err));
         }
-        return doc;
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.log(err)); 
     }));
-    return artists;
+    console.log('all albums fetched');
   },
   onlyUnique: function(value, index, self) { 
     return self.indexOf(value) === index;
+  },
+  fetchAlbumsFromDB: async function() {
+    let albums = await AlbumDB.findAsync({})
+      .then(docs => docs)
+      .catch(err => console.log(err));
+    return albums;
   }
 };
 
@@ -130,20 +140,19 @@ const Schemas = {
 
 };
 
-const SongDB = new linvodb('song', Schemas.song());
+let SongDB = new linvodb('song', Schemas.song());
 SongDB.ensureIndex({
   fieldName: 'path',
   unique: true
 });
 
-const AlbumDB = new linvodb('album', Schemas.album());
+let AlbumDB = new linvodb('album', Schemas.album());
 AlbumDB.ensureIndex({
   fieldName: 'title',
   unique: true
 });
 
 AlbumDB = Promise.promisifyAll(AlbumDB);
-
 export {
   Objects,
   Schemas

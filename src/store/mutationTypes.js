@@ -3,5 +3,5 @@
 export default {
   // Sidebar
   TOGGLE_SIDEBAR: 'toggleSidebar',
-  PLAY_OR_PAUSE: 'playOrPause'
+  ADD_SONGS_AND_ALBUMS: 'add_songs_and_albums'
 }
