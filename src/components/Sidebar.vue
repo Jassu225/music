@@ -1,20 +1,27 @@
 <template>
   <div id='sidebar' :class="{toggleSidebar: this.$store.state.sidebar.toggle}">
-    <div class="sidebar-item">Item 1</div>
-    <div class="sidebar-item">Item 2</div>
-    <div class="sidebar-item">Item 3</div>
-    <div class="sidebar-item">Item 4</div>
-    <div class="sidebar-item">Item 5</div>
-    <div class="sidebar-item">Item 6</div>
+    <div class="sidebar-item button" @click="showAddContentSection">Add Songs</div>
+    <div class="sidebar-item button">Item 2</div>
+    <div class="sidebar-item button">Item 3</div>
+    <div class="sidebar-item button">Item 4</div>
+    <div class="sidebar-item button">Item 5</div>
+    <div class="sidebar-item button">Item 6</div>
   </div>
 </template>
 
 <script>
+import mutationTypes from "./../store/mutationTypes";
+
 export default {
   data() {
     return {
       
     };
+  },
+  methods: {
+    showAddContentSection: function() {
+      this.$store.commit({ type: mutationTypes.SHOW_ADD_CONTENT_SECTION });
+    }
   }
 }
 </script>
@@ -25,8 +32,9 @@ export default {
   height: 100%;
   display: inline-block;
   position: absolute;
-  background-color: rgb(39, 39, 39);
+  background-color: rgb(32,32,32);
   transition: 0.4s transform ease;
+  z-index: 5;
 }
 
 .sidebar-item {
@@ -37,7 +45,7 @@ export default {
 }
 
 .sidebar-item:nth-child(even) {
-  background-color: rgb(27, 28, 31);
+  background-color: rgb(45,45,45);
 }
 
 .toggleSidebar {

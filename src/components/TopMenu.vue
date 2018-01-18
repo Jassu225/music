@@ -4,7 +4,7 @@
       <i class='fas fa-bars menu-icon button' @click="toggleSidebar"></i>
       <div class="flex-basis-0_85 full-height">
         <div class="full-height" style="display: flex; align-items: center;">
-          <div v-for="(icon, index) in icons" :key="index" class="button top-menu-item">
+          <div v-for="(icon, index) in icons" :key="index" class="button top-menu-item" @click="menuItem(index)">
             <i :class="icon.name" ></i>
             <span> {{ icon.title }} </span>
           </div>
@@ -16,7 +16,6 @@
 
 <script>
 import mutationTypes from "../store/mutationTypes";
-// import { icon } from '@fortawesome/fontawesome';
 
 export default {
   data() {
@@ -33,6 +32,13 @@ export default {
     toggleSidebar: function() {
       console.log('toggle sidebar');
       this.$store.commit({ type: mutationTypes.TOGGLE_SIDEBAR });
+    },
+    menuItem: function(index) {
+      switch(index) {
+        case 0:
+          this.$store.commit({ type: mutationTypes.OPEN_ALBUMS_PAGE });
+          break;
+      }
     }
   }
 }

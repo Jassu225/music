@@ -1,5 +1,5 @@
 <template>
-  <div id='albumSection' class="full-width full-height position-absolute">
+  <div id='albumSection' class="full-width full-height position-absolute section">
     <AlbumContainer />
   </div>
 </template>

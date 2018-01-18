@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+var path = require('path');
+var webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: ['babel-polyfill', './src/main.js'],
@@ -8,20 +9,29 @@ module.exports = {
     publicPath: './dist/',
     filename: 'build.js'
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      // Copy directory contents to {output}/to/directory/
+      { from: path.join(__dirname, './src', './assets', './images'),
+        to: path.join(__dirname, './dist', './assets', './images')
+      }
+    ])
+  ],
   module: {
     rules: [
-      {
-        test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'assets/images/[name].[ext]'
-        }
-      },
       {
         test: /\.(svg|eot|ttf|woff2?)$/,
         loader: 'file-loader',
         options: {
           name: 'assets/webfonts/[name].[ext]',
+          publicPath: "./dist/"
+        }
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/images/[name].[ext]',
           publicPath: "./dist/"
         }
       },

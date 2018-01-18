@@ -1,5 +1,5 @@
 <template>
-  <div id='addContentSection' class="full-width full-height position-absolute table section active">
+  <div id='addContentSection' class="full-width full-height position-absolute table section">
     <div class="table-cell">
       <p id='addSongs' class="center-text">Hi</p>
       <div class="flex-container center-horizontal center-vertical">
@@ -29,6 +29,7 @@ export default {
 
 .section {
   z-index: 1;
+  background-color: rgb(37, 41, 40);
 }
 
 .section.active {

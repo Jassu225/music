@@ -1,6 +1,6 @@
 <template>
   <div id='albumContainer'>
-    <Album v-for="(album, index) in albums" :key="index"
+    <Album v-for="(album, index) in this.$store.state.library.albums" :key="index"
       :album="album"
     />    
   </div>
@@ -11,12 +11,13 @@ import Album from './Album.vue';
 
 export default {
   data: function() {
-    return {
-      albums: this.$store.state.library.albums
+    return { 
     };
   },
   components: {
     Album
+  },
+  methods: {
   }
 }
 </script>

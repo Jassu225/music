@@ -1,5 +1,6 @@
 import path from 'path';
 import store from './../../store';
+import mutationTypes from '../../store/mutationTypes';
 
 const linvodb = window.require('linvodb3');
 const leveljs = window.require('level-js');
@@ -16,14 +17,48 @@ let appDir = path.dirname(window.require.main.filename);
 console.log(window.require.main.filename);
 
 const Objects = {
-  song: function(filePath, metadata) {
+  song: async function(filePath, metadata) {
 
     const parseBase64  = (format, data) => {
       return `data:image/${format};base64,${data}`;
     }
 
-    let cover = path.join(appDir, './assets/images/album.png');
+    let cover = path.join(appDir, './dist/assets/images/album.png');
+    let title = (metadata && metadata.title && metadata.title.length > 0) ? metadata.title : path.basename(filePath);
     let defaultCover = true;
+    if(!metadata) {
+
+      let doc = {
+        album: 'unknown',
+        albumartist: 'unknown',
+        artist: 'unknown',
+        disk: {
+          no: 0,
+          of: 0
+        },
+        duration: 0,
+        defaultCover: defaultCover,
+        genre: 'unknown',
+        path: filePath,
+        playCount: 0,
+        cover: cover,
+        title: title,
+        track: {
+          no: 0,
+          of: 0
+        },
+        year: "unknown"
+      };
+
+      await SongDB.insertAsync(doc)
+      .then((newDoc) => {
+        // success
+      })
+      .catch(err => console.log(err));
+
+      return doc;
+    }
+
     if( metadata.picture[0] && metadata.picture[0].data ) {
       cover = parseBase64(
         metadata.picture[0].format,
@@ -31,8 +66,6 @@ const Objects = {
       );
       defaultCover = false;
     }
-
-    let title = (metadata.title && metadata.title.length > 0) ? metadata.title : path.basename(filePath);
 
     return {
       album: (metadata.album && metadata.album.length > 0)? metadata.album : 'unknown',
@@ -152,7 +185,27 @@ AlbumDB.ensureIndex({
   unique: true
 });
 
+SongDB = Promise.promisifyAll(SongDB);
 AlbumDB = Promise.promisifyAll(AlbumDB);
+
+SongDB.findAsync({})
+.then(docs => {
+  store.commit({
+    type: mutationTypes.ADD_SONGS,
+    songs: docs
+  });
+})
+.catch(err => console.log(err));
+
+AlbumDB.findAsync({})
+.then(docs => {
+  store.commit({
+    type: mutationTypes.ADD_ALBUMS,
+    albums: docs
+  });
+})
+.catch(err => console.log(err));
+
 export {
   Objects,
   Schemas

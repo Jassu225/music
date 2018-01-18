@@ -118,7 +118,7 @@ export default {
       console.log(err);
     });
     // console.log(SongMetaData);
-    SongMetaData = Objects.song(file, SongMetaData);
+    SongMetaData = await Objects.song(file, SongMetaData);
     return SongMetaData;
   },
   fetchAlbumsMetaData: async function(songs) {
