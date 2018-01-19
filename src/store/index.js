@@ -54,36 +54,41 @@ const store = new Vuex.Store({
     },
 
     [mutationTypes.OPEN_ALBUMS_PAGE] (state) {
-      hideAllSections();
-      state.section.isAlbumsSectionActive = true;
-    },
-
-    [mutationTypes.SHOW_ADD_CONTENT_SECTION] (state) {
-      hideAllSections();
-      state.section.isAddContentSectionActive = true;
-    },
-
-    [mutationTypes.SHOW_ALBUM_CONTENT_SECTION] (state, payload) {
-      hideAllSections();
-      state.section.isAlbumContentSectionActive = true;
-    },
-
-    // HELPER FUNCTIONS
-    hideAllSections () {
-      state.section.isAlbumsSectionActive = false;
       state.section.isArtistsSectionActive = false;
       state.section.isFoldersSectionActive = false;
       state.section.isPlaylistsSectionActive = false;
       state.section.isAddContentSectionActive = false;
       state.section.isAlbumContentSectionActive = false;
+
+      state.section.isAlbumsSectionActive = true;
+    },
+
+    [mutationTypes.SHOW_ADD_CONTENT_SECTION] (state) {
+      state.section.isAlbumsSectionActive = false;
+      state.section.isArtistsSectionActive = false;
+      state.section.isFoldersSectionActive = false;
+      state.section.isPlaylistsSectionActive = false;
+      state.section.isAlbumContentSectionActive = false;
+
+      state.section.isAddContentSectionActive = true;
+    },
+
+    [mutationTypes.SHOW_ALBUM_CONTENT_SECTION] (state, payload) {
+      state.section.isAlbumsSectionActive = false;
+      state.section.isArtistsSectionActive = false;
+      state.section.isFoldersSectionActive = false;
+      state.section.isPlaylistsSectionActive = false;
+      state.section.isAddContentSectionActive = false;
+
+      state.section.isAlbumContentSectionActive = true;
     }
   },
 
   actions: {
     async [actionTypes.ADD_FOLDERS_TO_LIBRARY] (context) {
-      let songs = await libraryFunctions.addFolders();
+      let [songs, albums] = await libraryFunctions.addFolders();
       console.log(songs);
-      let albums = await Objects.fetchAlbumsFromDB();
+      // let albums = await Objects.fetchAlbumsFromDB();
       console.log(albums);
       context.commit({
         type: mutationTypes.ADD_SONGS_AND_ALBUMS,

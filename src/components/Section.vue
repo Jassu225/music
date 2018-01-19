@@ -1,9 +1,9 @@
 <template>
   <div id="section" class="full-width full-height">
     <div class="full-width full-height position-relative">
+      <AlbumContentSection :class="{active: this.$store.state.section.isAlbumContentSectionActive}" />
       <AddContentSection :class="{active: this.$store.state.section.isAddContentSectionActive}"/>
       <AlbumSection :class="{active: this.$store.state.section.isAlbumsSectionActive}" />
-      <AlbumContentSection :class="{active: this.$store.state.section.isAlbumContentSectionActive}"/>
     </div>
   </div>
 </template>

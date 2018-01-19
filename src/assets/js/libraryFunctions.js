@@ -35,9 +35,9 @@ export default {
     console.log('after fetching metadata');
     console.log(songs);
     Songs = songs;
-    await this.fetchAlbumsMetaData(songs);
+    Albums = await this.fetchAlbumsMetaData(songs);
     await this.fetchArtistsMetaData(songs);
-    return songs;
+    return [songs, Albums];
   },
   fetchSongsFromDirectories: async function(folders) {
     let files = [];
@@ -123,7 +123,7 @@ export default {
   },
   fetchAlbumsMetaData: async function(songs) {
     console.log('fetching albums metadata');
-    await Objects.albumsToDB(songs);
+    return( await Objects.albumsToDB(songs) );
   },
   fetchArtistsMetaData: function(songs) {
 

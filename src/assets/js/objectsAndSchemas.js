@@ -22,16 +22,16 @@ const Objects = {
     const parseBase64  = (format, data) => {
       return `data:image/${format};base64,${data}`;
     }
-
+    let doc;
     let cover = path.join(appDir, './dist/assets/images/album.png');
     let title = (metadata && metadata.title && metadata.title.length > 0) ? metadata.title : path.basename(filePath);
     let defaultCover = true;
     if(!metadata) {
 
-      let doc = {
+      doc = {
         album: 'unknown',
         albumartist: 'unknown',
-        artist: 'unknown',
+        artist: ['unknown'],
         disk: {
           no: 0,
           of: 0
@@ -95,35 +95,91 @@ const Objects = {
       year: song.year
     };
   },
+  // albumsToDB: async function(songs) {
+  //   await (Promise.mapSeries(songs,async song => {
+  //     console.log('parsing ' + song.path);
+  //     await AlbumDB.findOneAsync({ title: song.album })
+  //     .then( async (doc) => {
+  //       if(doc) {
+  //         console.log('doc found');
+  //         console.log(doc);
+  //         doc.artists = doc.artists.concat(song.artist);
+  //         doc.artists = doc.artists.filter( this.onlyUnique );
+  //         doc.songsList.push(song.path);
+  //         doc.defaultCover = (doc.defaultCover && !song.defaultCover) ? song.defaultCover : doc.defaultCover;
+  //         doc.duration += song.duration;
+  //         doc.tracks += 1; 
+  //         doc.save(function(err) { /* we have updated the doc */ });
+  //       } else {
+  //         console.log('doc not found');
+  //         doc = this.album(song);
+  //         await AlbumDB.insertAsync(doc)
+  //         .then((newDoc) => {
+  //           // success
+  //           console.log('album created');
+  //           console.log(newDoc);
+  //         })
+  //         .catch(err => console.log(err));
+  //       }
+  //     })
+  //     .catch(err => console.log(err)); 
+  //   }),{
+  //     concurrency: 1
+  //   });
+  //   console.log('all albums fetched');
+  // },
   albumsToDB: async function(songs) {
-    await Promise.all(Promise.map(songs,async song => {
+    let albums = [];
+    await Promise.mapSeries(songs, song => {
       console.log('parsing ' + song.path);
-      await AlbumDB.findOneAsync({ title: song.album })
-      .then( async (doc) => {
-        if(doc) {
-          console.log('doc found');
-          doc.artists.push(song.artist);
-          doc.artists = doc.artists.filter( this.onlyUnique );
-          doc.songsList.push(song.path);
-          doc.defaultCover = (doc.defaultCover && !song.defaultCover) ? song.defaultCover : doc.defaultCover;
-          doc.duration += song.duration;
-          doc.tracks += 1; 
-          doc.save(function(err) { /* we have updated the doc */ });
-        } else {
-          console.log('doc not found');
-          doc = this.album(song);
-          await AlbumDB.insertAsync(doc)
-          .then((newDoc) => {
-            // success
-            console.log('album created');
-            console.log(newDoc);
-          })
-          .catch(err => console.log(err));
-        }
-      })
-      .catch(err => console.log(err)); 
-    }));
-    console.log('all albums fetched');
+      let albumInfo = this.isAlbumPresent(song.album, albums);
+      if( !albumInfo.isPresent ) {
+        albums.push(this.album(song));
+        console.log('album created');
+      } else if ( !this.isSongPresent(song, albums[albumInfo.index]) ) {
+        albums[albumInfo.index].artists = albums[albumInfo.index].artists.concat(song.artist);
+        albums[albumInfo.index].artists = albums[albumInfo.index].artists.filter( this.onlyUnique );
+        albums[albumInfo.index].songsList.push(song.path);
+        (albums[albumInfo.index].defaultCover && !song.defaultCover) ? 
+          ( (albums[albumInfo.index].defaultCover = song.defaultCover) && (albums[albumInfo].cover = song.cover))
+           : albums[albumInfo.index].defaultCover;
+        albums[albumInfo.index].duration += song.duration;
+        albums[albumInfo.index].tracks += 1;
+        console.log('album updated');
+      }
+    });
+
+    console.log('albums created');
+    console.log(albums);
+
+    await AlbumDB.insertAsync(albums)
+    .then( newDocs =>{ console.log('docs created'); })
+    .catch( err => console.log(err));
+
+    return albums;
+  },
+  isAlbumPresent: function(album, albums) {
+    console.log('checking for album presence');
+    albums.forEach( (element, index) => {
+      if( element.title === album.title) {
+        console.log('album is present');
+        return {
+          isPresent: true,
+          index: index
+        };
+      }
+    });
+    return {
+      isPresent: false,
+      index: -1
+    };
+  },
+  isSongPresent: function(song, album) {
+    album.songsList.forEach(songPath => {
+      if( songPath === song.path)
+        return true;
+    });
+    return false;
   },
   onlyUnique: function(value, index, self) { 
     return self.indexOf(value) === index;

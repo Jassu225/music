@@ -29,6 +29,9 @@ export default {
 
 .section {
   z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background-color: rgb(37, 41, 40);
 }
 
