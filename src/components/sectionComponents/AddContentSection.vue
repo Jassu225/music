@@ -32,7 +32,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgb(37, 41, 40);
+  background-color: rgb(39, 39, 39);
 }
 
 .section.active {

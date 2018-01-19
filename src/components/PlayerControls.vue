@@ -6,7 +6,7 @@
     <i class='material-icons button flex-item media-controls' @click="playOrPause">{{icons[playPauseIconIndex]}}</i>
     <i class="material-icons button flex-item media-controls">skip_next</i>
     <i class="material-icons button flex-item media-controls" @click="seekForward">fast_forward</i>
-    <i class="material-icons button flex-item media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
+    <i :class="{selected: selected}" class="material-icons button flex-item media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
   </div>
 </template>
 
@@ -19,8 +19,9 @@ export default {
     return {
       icons: ['play_arrow','pause'],
       iconSelector: 0,
-      repeatModes: ['repeat', 'repeat_one'],
-      repeatModeSelector: 0
+      repeatModes: ['repeat','repeat', 'repeat_one'],
+      repeatModeSelector: 0,
+      selected: false
     };
   },
   mounted: function() {
@@ -53,7 +54,21 @@ export default {
   },
   methods: {
     changeRepeatMode() {
-      this.repeatModeSelector = 1 - this.repeatModeSelector;  // Toggles from  0 to 1 and vice-versa
+      this.repeatModeSelector = (this.repeatModeSelector + 1) % 3;  // Toggles from  0 to 1 and vice-versa
+      switch(this.repeatModeSelector) {
+        case 0:
+          this.selected = false;
+          audioPlayer.loop = false;
+          break;
+        case 1:
+          this.selected = true;
+          break;
+        case 2:
+          audioPlayer.loop = true;
+          this.selected = true;
+          break;
+      }
+      console.log(this.selected);
     },
     playOrPause() {
       // this.togglePlayPauseIcon();
@@ -88,6 +103,11 @@ export default {
 </script>
 
 <style>
+.selected {
+  background-color: rgb(39, 39, 41);
+  border-radius: 10px;
+}
+
 .font-size-22 {
   font-size: 22px; 
 }

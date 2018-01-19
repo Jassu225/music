@@ -6,14 +6,28 @@
           <img :src="this.$store.state.selectedAlbum ? this.$store.state.selectedAlbum.cover: null" @click="clicked" />
         </div>
       </div>
-      <div class="flex-item">
+      <div class="flex-item scroll songs-container">
+        <Song v-for="(song, index) in (this.$store.state.selectedAlbum ? this.$store.state.selectedAlbum.songsList : [])"
+          :key="index"
+          :songpath="song"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Song from './Song.vue';
+
 export default {
+  data: function() {
+    return {
+
+    };
+  },
+  components: {
+    Song
+  },
   methods: {
     clicked: function() {
       console.log(this.$store.state.selectedAlbum);
@@ -30,7 +44,7 @@ export default {
 
 #coverContainer img {
   width: 165px;
-  height: 210px;
+  max-height: 210px;
 }
 
 .padding-20 {
@@ -43,5 +57,13 @@ export default {
 
 .height-250 {
   height: 250px;
+}
+
+.scroll {
+  overflow: auto;
+}
+
+.songs-container {
+  background-color: rgb(35, 34, 34);
 }
 </style>
