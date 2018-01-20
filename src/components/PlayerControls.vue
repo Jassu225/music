@@ -7,6 +7,7 @@
     <i class="material-icons button flex-item media-controls">skip_next</i>
     <i class="material-icons button flex-item media-controls" @click="seekForward">fast_forward</i>
     <i :class="{selected: selected}" class="material-icons button flex-item media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
+    <input class="flex-item media-controls" type="range" min="0" max="100" />
   </div>
 </template>
 
@@ -119,5 +120,30 @@ export default {
 
 .media-controls:hover {
   color: rgb(119, 142, 168);
+}
+
+input[type=range].media-controls {
+  -webkit-appearance: none;
+  height: 3px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+input[type=range].media-controls::-webkit-slider-runnable-track {
+  height: 3px;
+  background-color: rgb(201, 201, 201);
+}
+
+input[type=range].media-controls::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: -2px;
+  background-color: rgb(224, 224, 224);
+}
+
+input[type=range].media-controls:focus {
+  outline: none;
 }
 </style>

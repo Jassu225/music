@@ -1,4 +1,72 @@
+/* Font imports */
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('./../fonts/Roboto/Roboto-Regular.ttf'); /* IE9 Compat Modes */
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 720px) {
+  #albumContainer .album {
+    width: 33.33%;
+    padding: 20px 16px !important;
+  }
+}
+
+@media screen and (min-width: 610px) {
+  #albumContainer .album {
+    padding: 20px !important;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  #albumContainer .album {
+    padding: 20px 24px !important;
+  }
+}
+
+@media screen and (min-width: 690px) {
+  #albumContainer .album {
+    padding: 20px 27px !important;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  #albumContainer .album {
+    padding: 20px 16px !important;
+  }
+}
+
+@media screen and (min-width: 810px) {
+  #albumContainer .album {
+    padding: 20px 25px !important;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  #albumContainer .album {
+    width: 20%;
+    padding: 20px !important;
+  }
+}
+
+@media screen and (min-width: 1070px) {
+  #albumContainer .album {
+    width: 16.67%;
+    padding: 20px !important;
+  }
+}
+
 /* Generic */
+* {
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Roboto-Regular';
+}
+
 .button {
   cursor: pointer;
 }
@@ -9,6 +77,54 @@
 
 .center-vertical {
   align-items: center;
+}
+  
+.col-1 {
+   width: 8.33%;
+}
+
+.col-2 {
+   width: 16.67%;
+}
+
+.col-3 {
+   width: 25%;
+}
+
+.col-4 {
+   width: 33.33%;
+}
+
+.col-5 {
+   width: 41.67%;
+}
+
+.col-6 {
+   width: 50%;
+}
+
+.col-7 {
+   width: 58.33%;
+}
+
+.col-8 {
+   width: 66.67%;
+}
+
+.col-9 {
+   width: 75%;
+}
+
+.col-10 {
+   width: 83.33%;
+}
+
+.col-11 {
+   width: 91.67%;
+}
+
+.col-12 {
+   width: 100%;
 }
 
 .full-height {

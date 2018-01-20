@@ -1,6 +1,6 @@
 <template>
   <div class="album col-3 table center-text button" @click="openAlbum">
-    <div class="table-cell vertically-middle">
+    <div class="table-cell vertically-middle background padding-top-10">
       <div class="image table">
         <img class="table-cell vertically-middle" :src="album.cover"/>
       </div>
@@ -26,56 +26,8 @@ export default {
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-  
-.col-1 {
-   width: 8.33%;
-}
-
-.col-2 {
-   width: 16.67%;
-}
-
-.col-3 {
-   width: 25%;
-}
-
-.col-4 {
-   width: 33.33%;
-}
-
-.col-5 {
-   width: 41.67%;
-}
-
-.col-6 {
-   width: 50%;
-}
-
-.col-7 {
-   width: 58.33%;
-}
-
-.col-8 {
-   width: 66.67%;
-}
-
-.col-9 {
-   width: 75%;
-}
-
-.col-10 {
-   width: 83.33%;
-}
-
-.col-11 {
-   width: 91.67%;
-}
-
-.col-12 {
-   width: 100%;
+.background {
+  background-color: rgb(53, 55, 56);
 }
 
 .center-text {
@@ -85,6 +37,11 @@ export default {
 .inline {
   display: inline-block;
 }
+
+.padding-top-10 {
+  padding-top: 10px;
+}
+
 .table {
   display: inline-table;
 }

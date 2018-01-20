@@ -8,7 +8,7 @@
 
       <div class="flex-item">
         <div class="flex-container full-height" style="flex-direction: column;">
-            <div class="flex-item">
+            <div class="flex-item flex-basis-0_4">
               <div class="flex-container center-horizontal center-vertical full-height">
                 <div style="width: 80px; text-align: center; height: 100%;">
                   <div class="full-height flex-container center-horizontal center-vertical">
@@ -35,7 +35,7 @@
               </div>
             </div>
             <!-- Player Controls -->
-            <div class="flex-item">
+            <div class="flex-item flex-basis-0_6">
               <div class="flex-container center-horizontal center-vertical full-height">
                 <PlayerControls :playPauseIconIndex="playPauseIconIndex"/>
               </div>
@@ -102,5 +102,13 @@ export default {
 #topMenuAlias {
   width: 50px;
   background-color: rgb(23, 23, 23);
+}
+
+.flex-basis-0_4 {
+  flex-basis: 40%;
+}
+
+.flex-basis-0_6 {
+  flex-basis: 60%;
 }
 </style>

@@ -24,7 +24,7 @@ const Objects = {
     }
     let doc;
     let cover = path.join(appDir, './dist/assets/images/album.png');
-    let title = (metadata && metadata.title && metadata.title.length > 0) ? metadata.title : path.basename(filePath);
+    let title = (metadata && metadata.title && metadata.title.length > 0) ? metadata.title : path.basename( (filePath = filePath.replace(/\\/g, "/")));
     let defaultCover = true;
     if(!metadata) {
 
@@ -97,7 +97,10 @@ const Objects = {
       cover: song.cover,
       defaultCover: song.defaultCover,
       duration: song.duration,
-      songsList: [song.path],
+      songsList: [{
+        path: song.path,
+        title: song.title
+      }],
       title: song.album,
       tracks: 1,
       year: song.year
@@ -115,7 +118,10 @@ const Objects = {
       } else if ( !(this.isSongPresent(song, albums[albumInfo.index])) ) {
         albums[albumInfo.index].artists = albums[albumInfo.index].artists.concat(song.artist);
         albums[albumInfo.index].artists = albums[albumInfo.index].artists.filter(this.onlyUnique );
-        albums[albumInfo.index].songsList.push(song.path);
+        albums[albumInfo.index].songsList.push({
+          path: song.path,
+          title: song.title
+        });
         (albums[albumInfo.index].defaultCover && !song.defaultCover) ? 
           ( (albums[albumInfo.index].defaultCover = song.defaultCover) && (albums[albumInfo].cover = song.cover))
            : albums[albumInfo.index].defaultCover;

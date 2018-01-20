@@ -12,8 +12,9 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       // Copy directory contents to {output}/to/directory/
-      { from: path.join(__dirname, './src', './assets', './images'),
-        to: path.join(__dirname, './dist', './assets', './images')
+      {
+        from: path.join(__dirname, './src', './assets', './images'),
+        to: path.join(__dirname, './dist','./assets', './images')
       }
     ])
   ],
@@ -24,14 +25,6 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: 'assets/webfonts/[name].[ext]',
-          publicPath: "./dist/"
-        }
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        loader: 'file-loader',
-        options: {
-          name: 'assets/images/[name].[ext]',
           publicPath: "./dist/"
         }
       },
