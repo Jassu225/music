@@ -1,48 +1,23 @@
 <template>
-  <div id="footer">
-    <div class="flex-container full-height">
-
-      <div id="topMenuAlias">
-        <div class='image-container'></div>
-      </div>
-
-      <div class="flex-item">
-        <div class="flex-container full-height" style="flex-direction: column;">
-            <div class="flex-item flex-basis-0_4">
-              <div class="flex-container center-horizontal center-vertical full-height">
-                <div style="width: 80px; text-align: center; height: 100%;">
-                  <div class="full-height flex-container center-horizontal center-vertical">
-                    <div> {{ currentTime }} </div>
-                  </div>
-                </div>
-
-                <div class="flex-item full-height">
-                  <div class="full-height flex-container center-horizontal center-vertical">
-                    <SeekbarContainer
-                    :updateCurrentTime="updateCurrentTime"
-                    :updateDuration="updateDuration"
-                    :changePlayPauseIconIndex="changePlayPauseIconIndex"
-                    :setToPlayIcon="setToPlayIcon"
-                    :setToPauseIcon="setToPauseIcon" />
-                  </div>
-                </div>
-
-                <div style="width: 80px; text-align: center; height: 100%;">
-                  <div class="full-height flex-container center-horizontal center-vertical">
-                    <div> {{ duration }} </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Player Controls -->
-            <div class="flex-item flex-basis-0_6">
-              <div class="flex-container center-horizontal center-vertical full-height">
-                <PlayerControls :playPauseIconIndex="playPauseIconIndex"/>
-              </div>
-            </div>
-        </div>
-      </div>
+  <div id="footer" class="grid footer-grid">
+    <div id="miniNavbar">
+      <div class='image-container'></div>
     </div>
+
+    <div id="current-time" class="grid-center-horizontal grid-center-vertical"> {{ currentTime }} </div>
+
+    <SeekbarContainer
+      class="grid-center-horizontal grid-center-vertical"
+      :updateCurrentTime="updateCurrentTime"
+      :updateDuration="updateDuration"
+      :changePlayPauseIconIndex="changePlayPauseIconIndex"
+      :setToPlayIcon="setToPlayIcon"
+      :setToPauseIcon="setToPauseIcon"
+    />
+  
+    <div id="duration" class="grid-center-horizontal grid-center-vertical"> {{ duration }} </div>
+    
+    <PlayerControls id="player-controls" :playPauseIconIndex="playPauseIconIndex" />
   </div>
 </template>
 
@@ -95,20 +70,24 @@ export default {
 
 <style>
 #footer {
-  height: 56px;
   background-color: rgb(7, 8, 9);
+  grid-area: Footer;
 }
 
-#topMenuAlias {
-  width: 50px;
+#miniNavbar {
   background-color: rgb(23, 23, 23);
+  grid-area: MiniMenu;
 }
 
-.flex-basis-0_4 {
-  flex-basis: 40%;
+#current-time {
+  grid-area: CurrentTime;
 }
 
-.flex-basis-0_6 {
-  flex-basis: 60%;
+#player-controls {
+  grid-area: PlayerControls;
+}
+
+#duration {
+  grid-area: TotalTime;
 }
 </style>

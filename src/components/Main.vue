@@ -1,7 +1,7 @@
 <template>
-  <div id="main" class="flex-container">
+  <div id="main" class="grid app-grid">
     <TopMenu />
-    <div class="flex-item">
+    <div class="main-section">
       <div class="position-relative full-height" >
         <Sidebar />
         <Section />
@@ -42,23 +42,7 @@ export default {
   height: 100%;
 }
 
-.flex-container {
-  display: flex;
-}
-
-.flex-item {
-  flex: 1;
-}
-
-.flex-basis-0_1 {
-  flex-basis: 10%;
-}
-
-.flex-basis-0_25 {
-  flex-basis: 25%;
-}
-
-.flex-basis-0_8 {
-  flex-basis: 80%;
+.main-section {
+  grid-area: MainSection;
 }
 </style>

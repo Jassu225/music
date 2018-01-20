@@ -54,8 +54,4 @@ export default {
   height: 40px;
   background-color: rgb(36, 83, 143);
 }
-
-.center-text {
-  text-align: center;
-}
 </style>

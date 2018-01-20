@@ -30,10 +30,6 @@ export default {
   background-color: rgb(53, 55, 56);
 }
 
-.center-text {
-  text-align: center;
-}
-
 .inline {
   display: inline-block;
 }

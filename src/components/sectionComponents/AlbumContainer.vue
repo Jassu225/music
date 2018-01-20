@@ -1,5 +1,5 @@
 <template>
-  <div id='albumContainer'>
+  <div id='albumContainer' class="album-section-grid">
     <Album v-for="(album, index) in this.$store.state.library.albums" :key="index"
       :album="album"
     />    

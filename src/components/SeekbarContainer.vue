@@ -1,5 +1,5 @@
 <template>
-  <div id="seek-container" @mousedown="getOffsetX">
+  <div id="seekbar-container" @mousedown="getOffsetX">
     <Seekbar
     :seekPercentage="seekPercentage"
     :updateCurrentTime="updateCurrentTime"
@@ -61,12 +61,13 @@ export default {
 </script>
 
 <style>
-#seek-container {
-  width: 100%;
+#seekbar-container {
+  width: 90%;
   height: 3px;
   background-color: rgb(57, 74, 73);
   border-radius: 3px;
   cursor: pointer;
+  grid-area: SeekBar;
 }
 </style>
 

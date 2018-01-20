@@ -1,13 +1,13 @@
 <template>
-  <div class="flex-container" style="text-align: center;width: 50%;">
-    <i class="material-icons button flex-item media-controls" @click="replay">replay</i>
-    <i class="material-icons button flex-item media-controls" @click="seekBackward">fast_rewind</i>
-    <i class="material-icons button flex-item media-controls">skip_previous</i>
-    <i class='material-icons button flex-item media-controls' @click="playOrPause">{{icons[playPauseIconIndex]}}</i>
-    <i class="material-icons button flex-item media-controls">skip_next</i>
-    <i class="material-icons button flex-item media-controls" @click="seekForward">fast_forward</i>
-    <i :class="{selected: selected}" class="material-icons button flex-item media-controls" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
-    <input class="flex-item media-controls" type="range" min="0" max="100" />
+  <div class="grid player-controls-grid">
+    <i class="material-icons button media-controls grid-center-horizontal grid-center-vertical" @click="replay">replay</i>
+    <i class="material-icons button media-controls grid-center-horizontal grid-center-vertical" @click="seekBackward">fast_rewind</i>
+    <i class="material-icons button media-controls grid-center-horizontal grid-center-vertical">skip_previous</i>
+    <i class='material-icons button media-controls grid-center-horizontal grid-center-vertical' @click="playOrPause">{{icons[playPauseIconIndex]}}</i>
+    <i class="material-icons button media-controls grid-center-horizontal grid-center-vertical">skip_next</i>
+    <i class="material-icons button media-controls grid-center-horizontal grid-center-vertical" @click="seekForward">fast_forward</i>
+    <i :class="{selected: selected}" class="material-icons button media-controls grid-center-horizontal grid-center-vertical" @click="changeRepeatMode">{{ repeatModes[repeatModeSelector] }}</i>
+    <input class="media-controls grid-center-horizontal grid-center-vertical" type="range" min="0" max="1" step="0.01" v-model="volume" @change="setVolume()"/>
   </div>
 </template>
 
@@ -22,7 +22,8 @@ export default {
       iconSelector: 0,
       repeatModes: ['repeat','repeat', 'repeat_one'],
       repeatModeSelector: 0,
-      selected: false
+      selected: false,
+      volume: 1
     };
   },
   mounted: function() {
@@ -98,6 +99,9 @@ export default {
     },
     seekForward() {
       (audioPlayer.readyState >= 2) ? (audioPlayer.currentTime += 3) : null;
+    },
+    setVolume: function() {
+      audioPlayer.volume = this.volume;
     }
   }
 }
@@ -126,7 +130,6 @@ input[type=range].media-controls {
   -webkit-appearance: none;
   height: 3px;
   cursor: pointer;
-  margin-top: 6px;
 }
 
 input[type=range].media-controls::-webkit-slider-runnable-track {
@@ -145,5 +148,37 @@ input[type=range].media-controls::-webkit-slider-thumb {
 
 input[type=range].media-controls:focus {
   outline: none;
+}
+
+.media-controls:first-child {
+  grid-area: Replay;
+}
+
+.media-controls:nth-child(2) {
+  grid-area: Backward;
+}
+
+.media-controls:nth-child(3) {
+  grid-area: Previous;
+}
+
+.media-controls:nth-child(4) {
+  grid-area: PlayPause;
+}
+
+.media-controls:nth-child(5) {
+  grid-area: Next;
+}
+
+.media-controls:nth-child(6) {
+  grid-area: Forward;
+}
+
+.media-controls:nth-child(7) {
+  grid-area: RepeatModes;
+}
+
+.media-controls:last-child {
+  grid-area: VolumeSlider;
 }
 </style>

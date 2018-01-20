@@ -1,0 +1,53 @@
+/* Using CSS4 grid system */
+
+.grid {
+  display: grid;
+}
+
+.grid-center-horizontal {
+  justify-self: center;
+}
+
+.grid-center-vertical {
+  align-self: center;
+}
+
+/* Root grid */
+.app-grid {
+  grid-template-rows: 50px 1fr 60px;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+    "TopMenu"
+    "MainSection"
+    "Footer";
+}
+
+/* Top Menu Grid */
+.top-menu-grid {
+  grid-template-rows: 1fr;
+  grid-template-columns: 10rem 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "three-bars albums-btn artists-btn folders-btn playlists-btn";
+}
+
+/** Main Menu Grids **/
+/* Album Section Grid */
+.album-section-grid {
+  
+}
+/* Footer Grid */
+.footer-grid {
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 4rem 4rem 1fr 4rem;
+  grid-template-areas:
+    "MiniMenu  CurrentTime       SeekBar          TotalTime"
+    "MiniMenu  PlayerControls    PlayerControls   PlayerControls"; 
+}
+
+/* PlayerControls Grid */
+.player-controls-grid {
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+  grid-template-areas:
+    ". Replay Backward Previous PlayPause Next Forward RepeatModes VolumeSlider";
+}

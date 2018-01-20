@@ -5,6 +5,7 @@ import App from './App.vue';
 import './assets/css/fontawesome-all.css';
 import './assets/css/google-material-icons.css';
 import './assets/css/generic.css';
+import './assets/css/grid.css';
 
 // generic scripts
 import store from './store';
