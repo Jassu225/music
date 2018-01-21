@@ -1,5 +1,5 @@
 <template>
-  <div class="album col-3 table center-text button" @click="openAlbum">
+  <div class="album full-width table center-text button grid-center-horizontal" @click="openAlbum">
     <div class="table-cell vertically-middle background padding-top-10">
       <div class="image table">
         <img class="table-cell vertically-middle" :src="album.cover"/>
@@ -52,11 +52,17 @@ export default {
 
 #albumContainer .album {
   height: 210px;
-  padding: 20px;
+  max-width: 180px !important;
 }
 
 #albumContainer .album-title {
+  width: 8rem;
   height: 34px;
+  margin: auto;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #albumContainer .album .image {

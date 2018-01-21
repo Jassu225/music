@@ -22,7 +22,7 @@ body,html {
   color: whitesmoke;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   user-select: none;
 }
 

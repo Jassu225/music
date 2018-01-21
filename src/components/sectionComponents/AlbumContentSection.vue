@@ -1,51 +1,50 @@
 <template>
-  <div id="albumContentSection" class="full-height section">
-    <div class="flex-container full-height">
-      <div id="content-display">
-        <div id="coverContainer" class="full-height">
-          <div class="inline padding-20 width-200 height-250">
-            <img :src="this.$store.state.selectedAlbum ? this.$store.state.selectedAlbum.cover: null" />
-          </div>
-        </div>
-        <div id="album-details" class="padding-left-10" v-if="this.$store.state.selectedAlbum">
-          <div>
-            <div class="color-fix">Title</div>
-            <div class="color-data">{{ this.$store.state.selectedAlbum.title }}</div>
-          </div>
+  <div id="albumContentSection" class="full-height section grid album-content-section-grid">
 
-          <br />
+    <img 
+      :src="this.$store.state.selectedAlbum ? this.$store.state.selectedAlbum.cover: null"
+      class="grid-center-horizontal grid-center-vertical"
+    />
 
-          <div class="color-fix">Artists</div>
-          <ul class="color-data">
-            <li v-for="(artist, index) in this.$store.state.selectedAlbum.artists"
-              :key="index"
-              class="artist">
-                {{ artist }}
-            </li>
-          </ul>
-
-          <br />
-
-          <div>
-            <div class="color-fix">Tracks</div>
-            <div class="color-data">{{ this.$store.state.selectedAlbum.tracks }}</div>
-          </div>
-
-          <br />
-
-          <div>
-            <div class="color-fix">Year</div>
-            <div class="color-data">{{ this.$store.state.selectedAlbum.year }}</div>
-          </div>
-        </div>
+    <div id="album-content" class="padding-left-10" v-if="this.$store.state.selectedAlbum">
+      <div>
+        <div class="color-fix">Title</div>
+        <div class="color-data">{{ this.$store.state.selectedAlbum.title }}</div>
       </div>
-      <div class="flex-item scroll songs-container">
-        <div v-for="(song, index) in (this.$store.state.selectedAlbum ? this.$store.state.selectedAlbum.songsList : [])"
-          :key="index" class="song table button" @click="playSong(song.path)">
-          <div class="table-cell vertically-middle">{{ song.title }}</div>
-        </div>
+
+      <br />
+
+      <div class="color-fix">Artists</div>
+      <ul class="color-data">
+        <li v-for="(artist, index) in this.$store.state.selectedAlbum.artists"
+          :key="index"
+          class="artist">
+            {{ artist }}
+        </li>
+      </ul>
+
+      <br />
+
+      <div>
+        <div class="color-fix">Tracks</div>
+        <div class="color-data">{{ this.$store.state.selectedAlbum.tracks }}</div>
+      </div>
+
+      <br />
+
+      <div>
+        <div class="color-fix">Year</div>
+        <div class="color-data">{{ this.$store.state.selectedAlbum.year }}</div>
       </div>
     </div>
+
+    <div class="scroll songs-container">
+      <div v-for="(song, index) in (this.$store.state.selectedAlbum ? this.$store.state.selectedAlbum.songsList : [])"
+        :key="index" class="song table button" @click="playSong(song.path)">
+        <div class="table-cell vertically-middle">{{ song.title }}</div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -77,18 +76,14 @@ ul,li {
   list-style-type: disc;
 }
 
-#content-display {
-  width: 25%;
-}
-
-#coverContainer {
-  height: 250px;
-  position: relative;
-}
-
-#coverContainer img {
+#albumContentSection img {
   width: 165px;
   max-height: 210px;
+  grid-area: AlbumCover;
+}
+
+#album-content {
+  grid-area: AlbumContent;
 }
 
 .color-fix {
@@ -122,6 +117,7 @@ ul,li {
 }
 
 #albumContentSection .songs-container {
+  grid-area: AlbumSongs;
   background-color: rgb(35, 34, 34);
 }
 

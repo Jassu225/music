@@ -107,7 +107,7 @@ const Objects = {
     };
   },
   albumsToDB: async function(songs) {
-    let albums = [];
+    let albums = await this.fetchAlbumsFromDB();
     await Promise.mapSeries(songs,async song => {
       console.log('parsing ' + song.path);
       let albumInfo = this.isAlbumPresent(song.album, albums);
@@ -134,8 +134,8 @@ const Objects = {
     console.log('albums created');
     console.log(albums);
 
-    await AlbumDB.insertAsync(albums)
-    .then( newDocs =>{ console.log('docs created'); })
+    await AlbumDB.saveAsync(albums)
+    .then( newDocs =>{ console.log('docs created'); console.log(newDocs); })
     .catch( err => console.log(err));
 
     return albums;
@@ -244,6 +244,7 @@ SongDB.findAsync({})
 
 AlbumDB.findAsync({})
 .then(docs => {
+  console.log(docs);
   store.commit({
     type: mutationTypes.ADD_ALBUMS,
     albums: docs

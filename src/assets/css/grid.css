@@ -25,16 +25,30 @@
 /* Top Menu Grid */
 .top-menu-grid {
   grid-template-rows: 1fr;
-  grid-template-columns: 10rem 1fr 1fr 1fr 1fr;
+  grid-template-columns: 10rem repeat(4, 1fr);
   grid-template-areas:
     "three-bars albums-btn artists-btn folders-btn playlists-btn";
 }
 
 /** Main Menu Grids **/
-/* Album Section Grid */
-.album-section-grid {
-  
+/* Album Container Section */
+
+.album-container-section-grid {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(3, minmax(9rem, 13rem));
+  grid-gap: 1.5rem;
 }
+
+/* Album Content Section Grid */
+.album-content-section-grid {
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 13rem 1fr;
+  grid-row-gap: 1.5rem;
+  grid-template-areas:
+    "AlbumCover   AlbumSongs"
+    "AlbumContent AlbumSongs";
+}
+
 /* Footer Grid */
 .footer-grid {
   grid-template-rows: 1fr 1fr;
@@ -47,7 +61,35 @@
 /* PlayerControls Grid */
 .player-controls-grid {
   grid-template-rows: 1fr;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+  grid-template-columns: 2fr repeat(7, 1fr) 2fr;
   grid-template-areas:
     ". Replay Backward Previous PlayPause Next Forward RepeatModes VolumeSlider";
+}
+
+/* Media Queries */
+@media screen and (min-width: 600px) {
+  .album-container-section-grid {
+    grid-gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 720px) {
+  .album-container-section-grid {
+    grid-template-columns: repeat(4, minmax(9rem, 13rem));
+    grid-gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 930px) {
+  .album-container-section-grid {
+    grid-template-columns: repeat(5, minmax(9rem, 13rem));
+    grid-gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1130px) {
+  .album-container-section-grid {
+    grid-template-columns: repeat(6, minmax(9rem, 13rem));
+    grid-gap: 1.5rem;
+  }
 }

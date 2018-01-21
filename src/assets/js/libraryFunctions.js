@@ -9,7 +9,8 @@ const Promise = window.require("bluebird");
 const fs = Promise.promisifyAll(window.require('fs'));
 const mm = Promise.promisify(window.require('musicmetadata'));
 
-let Songs,Albums;
+let Songs = [],
+    Albums = [];
 
 export default {
   addFolders: async function() {
@@ -34,7 +35,7 @@ export default {
     );
     console.log('after fetching metadata');
     console.log(songs);
-    Songs = songs;
+    Songs = Songs.concat(songs);
     Albums = await this.fetchAlbumsMetaData(songs);
     await this.fetchArtistsMetaData(songs);
     return [songs, Albums];
