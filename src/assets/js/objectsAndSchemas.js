@@ -166,6 +166,13 @@ const Objects = {
   onlyUnique: function(value, index, self) { 
     return(self.indexOf(value) === index);
   },
+  fetchSongsFromDB: async function() {
+    let songs = await SongDB.findAsync({})
+      .then(docs => docs)
+      .catch(err => console.log(err));
+
+    return songs;
+  },
   fetchAlbumsFromDB: async function() {
     let albums = await AlbumDB.findAsync({})
       .then(docs => docs)

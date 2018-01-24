@@ -36,7 +36,7 @@
 .album-container-section-grid {
   grid-auto-flow: row;
   grid-template-columns: repeat(3, minmax(9rem, 13rem));
-  grid-gap: 1.5rem;
+  grid-gap: 20px;
 }
 
 /* Album Content Section Grid */
@@ -69,27 +69,24 @@
 /* Media Queries */
 @media screen and (min-width: 600px) {
   .album-container-section-grid {
-    grid-gap: 2rem;
+    grid-row-gap: 30px;
   }
 }
 
 @media screen and (min-width: 720px) {
   .album-container-section-grid {
     grid-template-columns: repeat(4, minmax(9rem, 13rem));
-    grid-gap: 1.5rem;
   }
 }
 
 @media screen and (min-width: 930px) {
   .album-container-section-grid {
     grid-template-columns: repeat(5, minmax(9rem, 13rem));
-    grid-gap: 1.5rem;
   }
 }
 
 @media screen and (min-width: 1130px) {
   .album-container-section-grid {
     grid-template-columns: repeat(6, minmax(9rem, 13rem));
-    grid-gap: 1.5rem;
   }
 }

@@ -18,7 +18,10 @@ const store = new Vuex.Store({
       isFoldersSectionActive: false,
       isPlaylistsSectionActive: false,
       isAddContentSectionActive: false,
-      isAlbumContentSectionActive: false
+      isAlbumContentSectionActive: false,
+
+      albumSectionColumnCount: 3,
+      albumHeight: 210
     },
     library: {
       songs: [],
@@ -43,7 +46,7 @@ const store = new Vuex.Store({
 
     [mutationTypes.ADD_SONGS_AND_ALBUMS] (state, payload) {
       console.log(payload);
-      state.library.songs =  state.library.songs.concat(payload.songs);
+      state.library.songs =  payload.songs;
       state.library.albums = payload.albums;
       // state.library.albums = payload.albums;
       console.log(state);
@@ -81,6 +84,10 @@ const store = new Vuex.Store({
       state.section.isAddContentSectionActive = false;
 
       state.section.isAlbumContentSectionActive = true;
+    },
+
+    [mutationTypes.CHANGE_COLUMN_COUNT] (state, payload) {
+      state.section.albumSectionColumnCount = payload.albumSectionColumnCount;
     }
   },
 

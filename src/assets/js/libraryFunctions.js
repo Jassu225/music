@@ -35,10 +35,11 @@ export default {
     );
     console.log('after fetching metadata');
     console.log(songs);
-    Songs = Songs.concat(songs);
-    Albums = await this.fetchAlbumsMetaData(songs);
+    Songs = await Objects.fetchSongsFromDB();
+    await this.fetchAlbumsMetaData(songs);
+    Albums = await Objects.fetchAlbumsFromDB();
     await this.fetchArtistsMetaData(songs);
-    return [songs, Albums];
+    return [Songs, Albums];
   },
   fetchSongsFromDirectories: async function(folders) {
     let files = [];
