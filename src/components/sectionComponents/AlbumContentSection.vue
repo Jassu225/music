@@ -36,6 +36,13 @@
         <div class="color-fix">Year</div>
         <div class="color-data">{{ this.$store.state.selectedAlbum.year }}</div>
       </div>
+      
+      <br />
+
+      <div>
+        <div class="color-fix">Duration</div>
+        <div class="color-data">{{ (duration.toString()).toHHMMSS() }}{{ durationOfAlbum }}</div>
+      </div>
     </div>
 
     <div class="scroll songs-container">
@@ -53,7 +60,7 @@
 export default {
   data: function() {
     return {
-      
+      duration: 0
     };
   },
   methods: {
@@ -62,6 +69,23 @@ export default {
       audioPlayer.load();
       audioPlayer.play();
     }
+  },
+  computed: {
+    durationOfAlbum: function() {
+      this.duration = 0;
+      let songList = this.$store.state.selectedAlbum.songsList;
+      
+      for(let i = 0; i < songList.length; i++) {
+        let audio = new Audio();
+        audio.preload = 'metadata';
+        audio.addEventListener('loadedmetadata', () => {
+          console.log(audio.duration);
+          this.duration += audio.duration;
+        });
+        audio.src = songList[i].path;
+        audio.load();
+      }
+    },
   }
 }
 </script>

@@ -1,0 +1,31 @@
+#audio-player::-webkit-media-controls-panel {
+    background-color: transparent;
+}
+
+#audio-player::-webkit-media-controls-play-button {
+    width: 0;
+    -webkit-appearance: none;
+}
+
+#audio-player::-webkit-media-controls-current-time-display {
+    display: none;
+}
+
+#audio-player::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+
+#audio-player::-webkit-media-controls-timeline {
+    cursor: pointer;
+}
+
+#audio-player::-webkit-media-controls-mute-button {
+    margin-right: -15px;
+    -webkit-appearance: none;
+}
+
+#audio-player::-webkit-media-controls-mute-button::after {
+    margin-right: -15px;
+    font-family: "Material Icons";
+    content: "\e050";   /* volume_up unicode */
+}
