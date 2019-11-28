@@ -1,6 +1,7 @@
 import path from 'path';
 import store from './../../store';
 import mutationTypes from '../../store/mutationTypes';
+import config from '../../../config';
 
 const linvodb = window.require('linvodb3');
 const leveljs = window.require('level-js');
@@ -12,7 +13,10 @@ console.log(Promise);
 linvodb.defaults.store = {
   db: leveljs
 };
-linvodb.path = app.getPath('userData');
+const dbOptions = {
+  // filename: path.join(config.dbPath ? config.dbPath :  app.getPath('userData'), "./data.db")
+}
+linvodb.path =  config.dbPath ? config.dbPath :  app.getPath('userData');
 let appDir = path.dirname(window.require.main.filename);
 console.log(window.require.main.filename);
 
@@ -224,13 +228,13 @@ const Schemas = {
 
 };
 
-let SongDB = new linvodb('song', Schemas.song());
+let SongDB = new linvodb("song", Schemas.song(), dbOptions);
 SongDB.ensureIndex({
   fieldName: 'path',
   unique: true
 });
 
-let AlbumDB = new linvodb('album', Schemas.album());
+let AlbumDB = new linvodb("album", Schemas.album(), dbOptions);
 AlbumDB.ensureIndex({
   fieldName: 'title',
   unique: true
